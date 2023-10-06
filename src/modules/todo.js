@@ -29,4 +29,19 @@ const todoItem = (title, description, dueDate, priority, notes) => {
     const setNotes = (string) => {
         notes = string;
     }
+
+    return {
+        getTitle,
+        setTitle,
+        getDescription,
+        setDescription,
+        getDueDate,
+        setDueDate,
+        getPriority,
+        setPriority,
+        getNotes,
+        setNotes
+    }
 }
+
+export default todoItem;
