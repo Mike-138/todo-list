@@ -1,5 +1,5 @@
 import createModal from "./modal_template";
 
-const TodoModal = createModal("todoDialog", "todoConfirmButton");
+const todoModal = createModal("todoDialog", "todoConfirmButton");
 
-export default TodoModal;
+export default todoModal;
