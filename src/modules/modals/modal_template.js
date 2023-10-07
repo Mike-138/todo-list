@@ -1,12 +1,12 @@
-import createField from "./field";
-import createSelect from "./select";
-import createTextarea from "./textarea";
+import createField from "./field_template";
+import createSelect from "./select_template";
+import createTextarea from "./textarea_template";
 
 
-const createModal = () => {
+const createModal = (dialogId, buttonId) => {
 
     const modalDialog = document.createElement("dialog");
-    modalDialog.setAttribute("open", ""); // temp
+    modalDialog.id = dialogId;
 
     const modalForm = document.createElement("form");
     modalForm.setAttribute("method", "dialog");
@@ -22,6 +22,7 @@ const createModal = () => {
     const modalNotes = createTextarea("notes", "notes");
 
     const confirmButton = document.createElement("button");
+    confirmButton.id = buttonId;
     confirmButton.textContent = "Confirm";
 
     modalForm.append(
