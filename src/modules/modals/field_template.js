@@ -1,17 +1,9 @@
-const createField = (type, name, id, required = false) => {
+const createField = (field) => {
 
     const fieldContainer = document.createElement("div");
     fieldContainer.classList.add("field-container");
     const fieldLabel = document.createElement("label");
-    fieldLabel.setAttribute("for", id);
-    const field = document.createElement("input");
-    field.setAttribute("type", type);
-    field.setAttribute("name", name);
-    field.setAttribute("id", id);
-
-    if (required) {
-        field.setAttribute("required", "");
-    }
+    fieldLabel.setAttribute("for", field.id);
 
     fieldContainer.append(fieldLabel, field);
 
