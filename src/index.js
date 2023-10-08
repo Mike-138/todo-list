@@ -15,3 +15,7 @@ const addProjectButton = (() => {
 })();
 
 document.body.append(projectModal, addProjectButton);
+
+addProjectButton.addEventListener("click", () => {
+    projectModal.showModal();
+})

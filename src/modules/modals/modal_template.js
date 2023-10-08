@@ -6,7 +6,6 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
     // Create all modal elements
     const modalDialog = document.createElement("dialog");
     modalDialog.setAttribute("id", dialogId);
-    modalDialog.setAttribute("open", ""); // temp
 
     const modalForm = document.createElement("form");
     modalForm.setAttribute("method", "dialog");
