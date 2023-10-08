@@ -15,6 +15,7 @@ body {
 }
 
 dialog {
+    font-size: 1rem;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -22,9 +23,14 @@ dialog {
 }
 
 form {
-    padding: 2rem;
+    padding: 2em;
     display: grid;
-    gap: 2rem;
+    gap: 2em;
+}
+
+.field-container {
+    display: grid;
+    gap: 0.25em;
 }
 
 .add-project-button {

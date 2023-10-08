@@ -15,20 +15,20 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
     modalTitle.setAttribute("name", titleId);
     modalTitle.setAttribute("id", titleId);
     modalTitle.setAttribute("required", "");
-    const modalTitleContainer = createField(modalTitle);
+    const modalTitleContainer = createField(modalTitle, "Title");
 
     const modalDescription = document.createElement("input");
     modalDescription.setAttribute("type", "text");
     modalDescription.setAttribute("name", descId);
     modalDescription.setAttribute("id", descId);
-    const modalDescriptionContainer = createField(modalDescription);
+    const modalDescriptionContainer = createField(modalDescription, "Description");
 
     const modalDueDate = document.createElement("input");
     modalDueDate.setAttribute("type", "date");
     modalDueDate.setAttribute("name", dueDateId);
     modalDueDate.setAttribute("id", dueDateId);
     modalDueDate.setAttribute("required", "");
-    const modalDueDateContainer = createField(modalDueDate);
+    const modalDueDateContainer = createField(modalDueDate, "Due");
 
     const modalPriority = document.createElement("select");
     modalPriority.setAttribute("name", priorityId);
@@ -41,12 +41,12 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
         currentOption.textContent = option;
         modalPriority.appendChild(currentOption);
     }
-    const modalPriorityContainer = createField(modalPriority);
+    const modalPriorityContainer = createField(modalPriority, "Priority");
 
     const modalNotes = document.createElement("textarea");
     modalNotes.setAttribute("name", notesId);
     modalNotes.setAttribute("id", notesId);
-    const modalNotesContainer = createField(modalNotes);
+    const modalNotesContainer = createField(modalNotes, "Notes");
 
     const confirmButton = document.createElement("button");
     confirmButton.setAttribute("id", buttonId);
