@@ -38,7 +38,7 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
     for (let option of options) {
         let currentOption = document.createElement("option");
         currentOption.setAttribute("value", option);
-        currentOption.textContent = option;
+        currentOption.textContent = option.toUpperCase();
         modalPriority.appendChild(currentOption);
     }
     const modalPriorityContainer = createField(modalPriority, "Priority");
@@ -48,9 +48,12 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
     modalNotes.setAttribute("id", notesId);
     const modalNotesContainer = createField(modalNotes, "Notes");
 
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+
     const confirmButton = document.createElement("button");
     confirmButton.setAttribute("id", buttonId);
-    confirmButton.textContent = "Confirm";
+    confirmButton.textContent = "Add";
 
     // Assemble modal elements
     modalForm.append(
@@ -59,10 +62,17 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
         modalDueDateContainer,
         modalPriorityContainer,
         modalNotesContainer,
+        cancelButton,
         confirmButton
     );
 
     modalDialog.appendChild(modalForm);
+
+    // Cancel form
+    cancelButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        modalDialog.close();
+    });
 
     // Store form information in modalDialog.information object
     modalForm.addEventListener("submit", () => {
