@@ -21,6 +21,12 @@ dialog {
     transform: translate(-50%, -50%);
 }
 
+form {
+    padding: 2rem;
+    display: grid;
+    gap: 2rem;
+}
+
 .add-project-button {
     height: 5rem;
     width: 5rem;
