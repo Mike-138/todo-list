@@ -20,6 +20,16 @@ dialog {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: grow 200ms;
+}
+
+@keyframes grow {
+    from {
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
 form {
