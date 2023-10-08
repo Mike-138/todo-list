@@ -7,7 +7,7 @@ import projectModal from "./modules/modals/project_modal";
 
 const renderBody = (elements) => {
     const stack = elements.slice().reverse();
-    document.body.replaceChildren(...stack);
+    document.body.replaceChildren(projectModal, addProjectButton, ...stack);
 }
 
 const bodyElements = [];
@@ -20,9 +20,6 @@ const addProjectButton = (() => {
     button.appendChild(image);
     return button;
 })();
-
-bodyElements.push(projectModal);
-bodyElements.push(addProjectButton);
 
 renderBody(bodyElements);
 
