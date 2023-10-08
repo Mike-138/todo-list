@@ -3,6 +3,9 @@ import createField from "./field_template";
 
 const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, buttonId) => {
 
+    // Store form inputs
+    const formInfo = [];
+    
     // Create all modal elements
     const modalDialog = document.createElement("dialog");
     modalDialog.setAttribute("id", dialogId);
@@ -15,12 +18,14 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
     modalTitle.setAttribute("name", titleId);
     modalTitle.setAttribute("id", titleId);
     modalTitle.setAttribute("required", "");
+    formInfo.push(modalTitle);
     const modalTitleContainer = createField(modalTitle, "Title");
 
     const modalDescription = document.createElement("input");
     modalDescription.setAttribute("type", "text");
     modalDescription.setAttribute("name", descId);
     modalDescription.setAttribute("id", descId);
+    formInfo.push(modalDescription);
     const modalDescriptionContainer = createField(modalDescription, "Description");
 
     const modalDueDate = document.createElement("input");
@@ -28,6 +33,7 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
     modalDueDate.setAttribute("name", dueDateId);
     modalDueDate.setAttribute("id", dueDateId);
     modalDueDate.setAttribute("required", "");
+    formInfo.push(modalDueDate);
     const modalDueDateContainer = createField(modalDueDate, "Due");
 
     const modalPriority = document.createElement("select");
@@ -41,11 +47,13 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
         currentOption.textContent = option.toUpperCase();
         modalPriority.appendChild(currentOption);
     }
+    formInfo.push(modalPriority);
     const modalPriorityContainer = createField(modalPriority, "Priority");
 
     const modalNotes = document.createElement("textarea");
     modalNotes.setAttribute("name", notesId);
     modalNotes.setAttribute("id", notesId);
+    formInfo.push(modalNotes);
     const modalNotesContainer = createField(modalNotes, "Notes");
 
     const cancelButton = document.createElement("button");
@@ -68,9 +76,21 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
 
     modalDialog.appendChild(modalForm);
 
+    // Clear form
+    const clear = () => {
+        for (let item of formInfo) {
+            if (item.tagName === "SELECT") {
+                item.value = item.firstChild.value;
+            } else {
+                item.value = "";
+            }
+        }
+    };
+
     // Cancel form
     cancelButton.addEventListener("click", (event) => {
         event.preventDefault();
+        clear();
         modalDialog.close();
     });
 
@@ -83,6 +103,7 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
             priority: modalPriority.value,
             notes: modalNotes.value
         };
+        clear();
     });
 
     return modalDialog;
