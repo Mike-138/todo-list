@@ -5,7 +5,7 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
 
     // Create all modal elements
     const modalDialog = document.createElement("dialog");
-    modalDialog.id = dialogId;
+    modalDialog.setAttribute("id", dialogId);
     modalDialog.setAttribute("open", ""); // temp
 
     const modalForm = document.createElement("form");
@@ -50,7 +50,7 @@ const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, 
     const modalNotesContainer = createField(modalNotes);
 
     const confirmButton = document.createElement("button");
-    confirmButton.id = buttonId;
+    confirmButton.setAttribute("id", buttonId);
     confirmButton.textContent = "Confirm";
 
     // Assemble modal elements

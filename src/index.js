@@ -4,4 +4,4 @@ import project from "./modules/project_object";
 import todoModal from "./modules/modals/todo_modal";
 import projectModal from "./modules/modals/project_modal";
 
-document.body.appendChild(projectModal);
+document.body.append(projectModal);
