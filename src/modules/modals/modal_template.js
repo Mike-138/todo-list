@@ -1,94 +1,116 @@
-import createField from "./field_template";
+const createModal = (modalId) => {
 
-
-const createModal = (id) => {
-
-    // Store form inputs
-    const formInfo = [];
+    // Store form elements
+    const _formHeaders = [];
+    const _formFields = [];
     
-    // Create all modal elements
-    const modalDialog = document.createElement("dialog");
-    modalDialog.setAttribute("id", id);
+    // Define private elements
+    const _modalDialog = document.createElement("dialog");
+    _modalDialog.setAttribute("modalId", modalId);
 
-    const modalForm = document.createElement("form");
-    modalForm.setAttribute("method", "dialog");
+    const _modalForm = document.createElement("form");
+    _modalForm.setAttribute("method", "dialog");
 
-    const modalTitle = (titleId) => {
-        document.createElement("input");
-        modalTitle.setAttribute("type", "text");
-        modalTitle.setAttribute("name", titleId);
-        modalTitle.setAttribute("id", titleId);
-        modalTitle.setAttribute("required", "");
-        formInfo.push(modalTitle);
-        const modalTitleContainer = createField(modalTitle, "Title");
+    const _cancelButton = document.createElement("button");
+    _cancelButton.textContent = "Cancel";
+
+    const _confirmButton = document.createElement("button");
+    _confirmButton.textContent = "Add";
+
+    // Define private methods
+    const _packageField = (field, fieldName) => {
+
+        const fieldContainer = document.createElement("div");
+        fieldContainer.classList.add("field-container");
+        const fieldLabel = document.createElement("label");
+        fieldLabel.setAttribute("for", field.id);
+        fieldLabel.textContent = fieldName;
+    
+        fieldContainer.append(fieldLabel, field);
+    
+        return fieldContainer;
+    
     };
 
-    const modalDescription = (descId) => {
-        document.createElement("input");
-        modalDescription.setAttribute("type", "text");
-        modalDescription.setAttribute("name", descId);
-        modalDescription.setAttribute("id", descId);
-        formInfo.push(modalDescription);
-        const modalDescriptionContainer = createField(modalDescription, "Description");
+    const _fieldFactory = (divType, {inputType, required = false, options = []} = {}) => {
+
+        const makeField = (inputName, inputId) => {
+
+            const field = document.createElement(divType);
+            field.setAttribute("name", inputName);
+            field.setAttribute("modalId", inputId);
+
+            if (divType === "input") {
+
+                field.setAttribute("type", inputType);
+
+            } else if (divType === "select") {
+
+                for (let option of options) {
+                    let currentOption = document.createElement("option");
+                    currentOption.setAttribute("value", option);
+                    currentOption.textContent = option.toUpperCase();
+                    field.appendChild(currentOption);
+                }
+
+            }
+    
+            if (required) {
+                field.setAttribute("required", "");
+            }
+            
+            _formFields.push(field);
+            return this;
+
+        };
+
+        return makeField;
+
     };
 
-    const modalDueDate = (dueDateId) => {
-        document.createElement("input");
-        modalDueDate.setAttribute("type", "date");
-        modalDueDate.setAttribute("name", dueDateId);
-        modalDueDate.setAttribute("id", dueDateId);
-        modalDueDate.setAttribute("required", "");
-        formInfo.push(modalDueDate);
-        const modalDueDateContainer = createField(modalDueDate, "Due");
-    };
+    // Define public methods
+    const makeTitleField = _fieldFactory("input", {inputType: "text", required: true});
 
-    const modalPriority = (priorityId) => {
-        document.createElement("select");
-        modalPriority.setAttribute("name", priorityId);
-        modalPriority.setAttribute("id", priorityId);
+    const makeDescriptionField = _fieldFactory("input", {inputType: "text"});
 
-        const options = ["low", "medium", "high", "urgent"];
-        for (let option of options) {
-            let currentOption = document.createElement("option");
-            currentOption.setAttribute("value", option);
-            currentOption.textContent = option.toUpperCase();
-            modalPriority.appendChild(currentOption);
+    const makeDueDateField = _fieldFactory("input", {inputType: "date", required: true});
+
+    const makePriorityField = _fieldFactory("select", {options: ["low", "medium", "high", "urgent"]})
+
+    const makeNotesField = _fieldFactory("textarea");
+
+    const makeHeader = (size, content) => {
+
+        const header = document.createElement(size);
+        header.textContent = content;
+
+        _formHeaders.push(header);
+        return this;
+
+    }
+
+    const build = () => {
+
+        for (let header of _formHeaders) {
+            _modalForm.appendChild(header);
         }
-        formInfo.push(modalPriority);
-        const modalPriorityContainer = createField(modalPriority, "Priority");
+
+        for (let field of _formFields) {
+            let packagedField = _packageField(field, field.name);
+            _modalForm.appendChild(packagedField);
+        }
+
+        _modalForm.appendChild(_cancelButton);
+        _modalForm.appendChild(_confirmButton);
+
+        _modalDialog.appendChild(_modalForm)
+        return _modalDialog;
+
     };
-
-    const modalNotes = (notesId) => {
-        document.createElement("textarea");
-        modalNotes.setAttribute("name", notesId);
-        modalNotes.setAttribute("id", notesId);
-        formInfo.push(modalNotes);
-        const modalNotesContainer = createField(modalNotes, "Notes");
-    };
-
-    const cancelButton = document.createElement("button");
-    cancelButton.textContent = "Cancel";
-
-    const confirmButton = document.createElement("button");
-    confirmButton.setAttribute("id", `${id + "Submit"}`)
-    confirmButton.textContent = "Add";
-
-    // Assemble modal elements
-    modalForm.append(
-        modalTitleContainer,
-        modalDescriptionContainer,
-        modalDueDateContainer,
-        modalPriorityContainer,
-        modalNotesContainer,
-        cancelButton,
-        confirmButton
-    );
-
-    modalDialog.appendChild(modalForm);
 
     // Clear form
     const clear = () => {
-        for (let item of formInfo) {
+        for (let item of _formFields) {
             if (item.tagName === "SELECT") {
                 item.value = item.firstChild.value;
             } else {
@@ -98,16 +120,16 @@ const createModal = (id) => {
     };
 
     // Cancel form
-    cancelButton.addEventListener("click", (event) => {
+    _cancelButton.addEventListener("click", (event) => {
         event.preventDefault();
         clear();
-        modalDialog.close();
+        _modalDialog.close();
     });
 
-    // Store form information in modalDialog.information object
-    modalForm.addEventListener("submit", () => {
-        modalDialog.information = {
-            title: modalTitle.value,
+    // Store form information in _modalDialog.information object
+    _modalForm.addEventListener("submit", () => {
+        _modalDialog.information = {
+            title: field.value,
             description: modalDescription.value,
             dueDate: modalDueDate.value,
             priority: modalPriority.value,
@@ -116,7 +138,15 @@ const createModal = (id) => {
         clear();
     });
 
-    return modalDialog;
+    return {
+        makeHeader,
+        makeTitleField,
+        makeDescriptionField,
+        makeDueDateField,
+        makePriorityField,
+        makeNotesField,
+        build
+    };
 
 };
 
