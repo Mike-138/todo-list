@@ -1,66 +1,74 @@
 import createField from "./field_template";
 
 
-const createModal = (dialogId, titleId, descId, dueDateId, priorityId, notesId, buttonId) => {
+const createModal = () => {
 
     // Store form inputs
     const formInfo = [];
     
     // Create all modal elements
     const modalDialog = document.createElement("dialog");
-    modalDialog.setAttribute("id", dialogId);
 
     const modalForm = document.createElement("form");
     modalForm.setAttribute("method", "dialog");
 
-    const modalTitle = document.createElement("input");
-    modalTitle.setAttribute("type", "text");
-    modalTitle.setAttribute("name", titleId);
-    modalTitle.setAttribute("id", titleId);
-    modalTitle.setAttribute("required", "");
-    formInfo.push(modalTitle);
-    const modalTitleContainer = createField(modalTitle, "Title");
+    const modalTitle = (titleId) => {
+        document.createElement("input");
+        modalTitle.setAttribute("type", "text");
+        modalTitle.setAttribute("name", titleId);
+        modalTitle.setAttribute("id", titleId);
+        modalTitle.setAttribute("required", "");
+        formInfo.push(modalTitle);
+        const modalTitleContainer = createField(modalTitle, "Title");
+    };
 
-    const modalDescription = document.createElement("input");
-    modalDescription.setAttribute("type", "text");
-    modalDescription.setAttribute("name", descId);
-    modalDescription.setAttribute("id", descId);
-    formInfo.push(modalDescription);
-    const modalDescriptionContainer = createField(modalDescription, "Description");
+    const modalDescription = (descId) => {
+        document.createElement("input");
+        modalDescription.setAttribute("type", "text");
+        modalDescription.setAttribute("name", descId);
+        modalDescription.setAttribute("id", descId);
+        formInfo.push(modalDescription);
+        const modalDescriptionContainer = createField(modalDescription, "Description");
+    };
 
-    const modalDueDate = document.createElement("input");
-    modalDueDate.setAttribute("type", "date");
-    modalDueDate.setAttribute("name", dueDateId);
-    modalDueDate.setAttribute("id", dueDateId);
-    modalDueDate.setAttribute("required", "");
-    formInfo.push(modalDueDate);
-    const modalDueDateContainer = createField(modalDueDate, "Due");
+    const modalDueDate = (dueDateId) => {
+        document.createElement("input");
+        modalDueDate.setAttribute("type", "date");
+        modalDueDate.setAttribute("name", dueDateId);
+        modalDueDate.setAttribute("id", dueDateId);
+        modalDueDate.setAttribute("required", "");
+        formInfo.push(modalDueDate);
+        const modalDueDateContainer = createField(modalDueDate, "Due");
+    };
 
-    const modalPriority = document.createElement("select");
-    modalPriority.setAttribute("name", priorityId);
-    modalPriority.setAttribute("id", priorityId);
+    const modalPriority = (priorityId) => {
+        document.createElement("select");
+        modalPriority.setAttribute("name", priorityId);
+        modalPriority.setAttribute("id", priorityId);
 
-    const options = ["low", "medium", "high", "urgent"];
-    for (let option of options) {
-        let currentOption = document.createElement("option");
-        currentOption.setAttribute("value", option);
-        currentOption.textContent = option.toUpperCase();
-        modalPriority.appendChild(currentOption);
-    }
-    formInfo.push(modalPriority);
-    const modalPriorityContainer = createField(modalPriority, "Priority");
+        const options = ["low", "medium", "high", "urgent"];
+        for (let option of options) {
+            let currentOption = document.createElement("option");
+            currentOption.setAttribute("value", option);
+            currentOption.textContent = option.toUpperCase();
+            modalPriority.appendChild(currentOption);
+        }
+        formInfo.push(modalPriority);
+        const modalPriorityContainer = createField(modalPriority, "Priority");
+    };
 
-    const modalNotes = document.createElement("textarea");
-    modalNotes.setAttribute("name", notesId);
-    modalNotes.setAttribute("id", notesId);
-    formInfo.push(modalNotes);
-    const modalNotesContainer = createField(modalNotes, "Notes");
+    const modalNotes = (notesId) => {
+        document.createElement("textarea");
+        modalNotes.setAttribute("name", notesId);
+        modalNotes.setAttribute("id", notesId);
+        formInfo.push(modalNotes);
+        const modalNotesContainer = createField(modalNotes, "Notes");
+    };
 
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
 
     const confirmButton = document.createElement("button");
-    confirmButton.setAttribute("id", buttonId);
     confirmButton.textContent = "Add";
 
     // Assemble modal elements
