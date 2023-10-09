@@ -1,13 +1,14 @@
 import createField from "./field_template";
 
 
-const createModal = () => {
+const createModal = (id) => {
 
     // Store form inputs
     const formInfo = [];
     
     // Create all modal elements
     const modalDialog = document.createElement("dialog");
+    modalDialog.setAttribute("id", id);
 
     const modalForm = document.createElement("form");
     modalForm.setAttribute("method", "dialog");
@@ -69,6 +70,7 @@ const createModal = () => {
     cancelButton.textContent = "Cancel";
 
     const confirmButton = document.createElement("button");
+    confirmButton.setAttribute("id", `${id + "Submit"}`)
     confirmButton.textContent = "Add";
 
     // Assemble modal elements
