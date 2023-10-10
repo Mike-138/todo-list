@@ -4,11 +4,11 @@ const createProjectModal = modalFactory("projectDialog");
 
 const projectModal = (createProjectModal
     .makeHeader("h1", "Create a project!")
-    .makeTitleField("Title", "projectTitle")
-    .makeDescriptionField("Description", "projectDescription")
-    .makeDueDateField("Due", "projectDueDate")
-    .makePriorityField("Priority", "projectPriority")
-    .makeNotesField("Notes", "projectNotes")
+    .makeTitleField("projectTitle")
+    .makeDescriptionField("projectDescription")
+    .makeDueDateField("projectDueDate")
+    .makePriorityField("projectPriority")
+    .makeNotesField("projectNotes")
     .build()
     );
 

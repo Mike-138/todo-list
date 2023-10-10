@@ -4,11 +4,11 @@ const createTodoModal = modalFactory("todoDialog");
 
 const todoModal = (createTodoModal
     .makeHeader("h1", "Create a task!")
-    .makeTitleField("Title", "todoTitle")
-    .makeDescriptionField("Description", "todoDescription")
-    .makeDueDateField("Due", "todoDueDate")
-    .makePriorityField("Priority", "todoPriority")
-    .makeNotesField("Notes", "todoNotes")
+    .makeTitleField("todoTitle")
+    .makeDescriptionField("todoDescription")
+    .makeDueDateField("todoDueDate")
+    .makePriorityField("todoPriority")
+    .makeNotesField("todoNotes")
     .build()
     );
 

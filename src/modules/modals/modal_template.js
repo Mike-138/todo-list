@@ -27,7 +27,8 @@ const modalFactory = (modalId) => {
         fieldContainer.classList.add("field-container");
         const fieldLabel = document.createElement("label");
         fieldLabel.setAttribute("for", field.id);
-        fieldLabel.textContent = field.name;
+        // Capitalize label name in DOM
+        fieldLabel.textContent = field.name[0].toUpperCase() + field.name.slice(1);
 
         if (field.tagName === "TEXTAREA") {
 
@@ -41,10 +42,10 @@ const modalFactory = (modalId) => {
     
     };
 
-    const _fieldFactory = (divType, {inputType, required = false, options = []} = {}) => {
+    const _fieldFactory = (divType, inputName, {inputType, required = false, options = []} = {}) => {
 
         // Function keyword over arrow function to attach "this" to an object and not to the outer function where it is defined
-        const makeField = function(inputName, inputId) {
+        const makeField = function(inputId) {
 
             const field = document.createElement(divType);
             field.setAttribute("name", inputName);
@@ -79,15 +80,15 @@ const modalFactory = (modalId) => {
     };
 
     // Define public methods
-    const makeTitleField = _fieldFactory("input", {inputType: "text", required: true});
+    const makeTitleField = _fieldFactory("input", "title", {inputType: "text", required: true});
 
-    const makeDescriptionField = _fieldFactory("input", {inputType: "text"});
+    const makeDescriptionField = _fieldFactory("input", "description", {inputType: "text"});
 
-    const makeDueDateField = _fieldFactory("input", {inputType: "date", required: true});
+    const makeDueDateField = _fieldFactory("input", "due", {inputType: "date", required: true});
 
-    const makePriorityField = _fieldFactory("select", {options: ["low", "medium", "high", "urgent"]})
+    const makePriorityField = _fieldFactory("select", "priority", {options: ["low", "medium", "high", "urgent"]})
 
-    const makeNotesField = _fieldFactory("textarea");
+    const makeNotesField = _fieldFactory("textarea", "notes");
 
     // Function keyword over arrow function to attach "this" to an object and not to the outer function where it is defined
     const makeHeader = function(size, content) {
