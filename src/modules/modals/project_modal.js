@@ -1,8 +1,6 @@
 import modalFactory from "./modal_template";
 
-const createProjectModal = modalFactory("projectDialog");
-
-const projectModal = (createProjectModal
+const projectModal = (modalFactory("projectDialog")
     .makeHeader("h1", "Create a project!")
     .makeTitleField("projectTitle")
     .makeDescriptionField("projectDescription")
