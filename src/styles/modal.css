@@ -18,7 +18,7 @@ dialog {
     }
 }
 
-form {
+form[method="dialog"] {
     padding: 2em;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -30,7 +30,7 @@ input, select, textarea {
     letter-spacing: 0.05em;
 }
 
-form > button {
+form[method="dialog"] > button {
     font-size: 3em;
     font-weight: bold;
     letter-spacing: 0.1em;
@@ -38,11 +38,11 @@ form > button {
     color: white;
 }
 
-form > button:first-of-type {
+form[method="dialog"] > button:first-of-type {
     background-color: red;
 }
 
-form > button:last-of-type {
+form[method="dialog"] > button:last-of-type {
     background-color: green;
 }
 
@@ -60,6 +60,10 @@ form > button:last-of-type {
     font-size: 1.25em;
 }
 
-.field-container:has(textarea) {
+.wide {
     grid-column: span 2;
+}
+
+.wide.center {
+    justify-self: center;
 }

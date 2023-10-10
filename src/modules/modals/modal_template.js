@@ -28,6 +28,12 @@ const modalFactory = (modalId) => {
         const fieldLabel = document.createElement("label");
         fieldLabel.setAttribute("for", field.id);
         fieldLabel.textContent = field.name;
+
+        if (field.tagName === "TEXTAREA") {
+
+            fieldContainer.classList.add("wide");
+
+        }
     
         fieldContainer.append(fieldLabel, field);
     
@@ -88,6 +94,7 @@ const modalFactory = (modalId) => {
 
         const header = document.createElement(size);
         header.textContent = content;
+        header.classList.add("wide", "center");
 
         _formHeaders.push(header);
         return this;
