@@ -1,3 +1,6 @@
+import "../../styles/modal.css";
+
+
 const modalFactory = (modalId) => {
 
     // Store form elements
