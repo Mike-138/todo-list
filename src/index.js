@@ -7,7 +7,7 @@ import projectModal from "./modules/modals/project_modal";
 
 const renderBody = (elements) => {
     const stack = elements.slice().reverse();
-    document.body.replaceChildren(projectModal.html, addProjectButton, ...stack);
+    document.body.replaceChildren(projectModal.getHtml(), addProjectButton, ...stack);
 }
 
 const bodyElements = [];
@@ -24,10 +24,10 @@ const addProjectButton = (() => {
 renderBody(bodyElements);
 
 addProjectButton.addEventListener("click", () => {
-    projectModal.html.showModal();
+    projectModal.getHtml().showModal();
 })
 
-projectModal.html.addEventListener("submit", () => {
+projectModal.getHtml().addEventListener("submit", () => {
     const createProject = () => {
         const container = document.createElement("div");
         const title = document.createElement("h1");

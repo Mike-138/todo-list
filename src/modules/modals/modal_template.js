@@ -7,19 +7,11 @@ const modalFactory = (modalId) => {
     const _formHeaders = [];
     const _formFields = [];
     
-    // Define private elements
-    const _modalDialog = document.createElement("dialog");
-    _modalDialog.setAttribute("id", modalId);
-
+    // Define private properties
     const _info = {};
 
-    const getInfo = () => _info;
-
-    const __setInfo = () => {
-        for (let field of _formFields) {
-            _info[field.name] = field.value;
-        }
-    }
+    const _modalDialog = document.createElement("dialog");
+    _modalDialog.setAttribute("id", modalId);
 
     const _modalForm = document.createElement("form");
     _modalForm.setAttribute("method", "dialog");
@@ -90,6 +82,10 @@ const modalFactory = (modalId) => {
     };
 
     // Define public methods
+    const getHtml = () => _modalDialog;
+
+    const getInfo = () => _info;
+
     const makeTitleField = _fieldFactory("input", "title", {inputType: "text", required: true});
 
     const makeDescriptionField = _fieldFactory("input", "description", {inputType: "text"});
@@ -129,14 +125,19 @@ const modalFactory = (modalId) => {
         _modalDialog.appendChild(_modalForm)
 
         return {
-            html: _modalDialog,
+            getHtml,
             getInfo
         };
 
     };
 
-    // Clear form
-    const __clear = () => {
+    const __setInfo = () => {
+        for (let field of _formFields) {
+            _info[field.name] = field.value;
+        }
+    }
+
+    const __clearForm = () => {
         for (let field of _formFields) {
             if (field.tagName === "SELECT") {
                 field.value = field.firstChild.value;
@@ -149,14 +150,14 @@ const modalFactory = (modalId) => {
     // Cancel form
     _cancelButton.addEventListener("click", (event) => {
         event.preventDefault();
-        __clear();
+        __clearForm();
         _modalDialog.close();
     });
 
     // Store form information in info object
     _modalDialog.addEventListener("submit", () => {
         __setInfo();
-        __clear();
+        __clearForm();
     });
 
     return {
