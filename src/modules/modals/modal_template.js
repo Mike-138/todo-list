@@ -1,4 +1,4 @@
-const createModal = (modalId) => {
+const modalFactory = (modalId) => {
 
     // Store form elements
     const _formHeaders = [];
@@ -6,7 +6,7 @@ const createModal = (modalId) => {
     
     // Define private elements
     const _modalDialog = document.createElement("dialog");
-    _modalDialog.setAttribute("modalId", modalId);
+    _modalDialog.setAttribute("id", modalId);
 
     const _modalForm = document.createElement("form");
     _modalForm.setAttribute("method", "dialog");
@@ -38,7 +38,7 @@ const createModal = (modalId) => {
 
             const field = document.createElement(divType);
             field.setAttribute("name", inputName);
-            field.setAttribute("modalId", inputId);
+            field.setAttribute("id", inputId);
 
             if (divType === "input") {
 
@@ -150,4 +150,4 @@ const createModal = (modalId) => {
 
 };
 
-export default createModal;
+export default modalFactory;

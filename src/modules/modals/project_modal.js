@@ -1,5 +1,14 @@
-import createModal from "./modal_template";
+import modalFactory from "./modal_template";
 
-const projectModal = createModal("projectDialog", "projectTitle", "projectDesc", "projectDueDate", "projectPriority", "projectNotes", "projectConfirmButton");
+const createProjectModal = modalFactory("projectDialog");
+
+createProjectModal.makeHeader("h1", "Create a project!");
+createProjectModal.makeTitleField("Title", "projectTitle")
+createProjectModal.makeDescriptionField("Description", "projectDescription")
+createProjectModal.makeDueDateField("Due", "projectDueDate")
+createProjectModal.makePriorityField("Priority", "projectPriority")
+createProjectModal.makeNotesField("Notes", "projectNotes")
+
+const projectModal = createProjectModal.build();
 
 export default projectModal;
