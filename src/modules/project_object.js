@@ -43,6 +43,33 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         _todoList.splice(index, 1);
     };
 
+    const generatePropertyElement = (getter) => {
+        const element = getter();
+        let container;
+
+        switch (getter) {
+            case getTitle:
+                container = document.createElement("h1");
+                break;
+            case getDescription:
+                container = document.createElement("h2");
+                break;
+            case getDueDate:
+                container = document.createElement("h3");
+                break;
+            case getPriority:
+                container = document.createElement("h4");
+                break;
+            case getNotes:
+                container = document.createElement("p");
+                break;
+            default:
+                return;
+        }
+        container.textContent = element;
+        return container;
+    };
+
     return {
         getTitle,
         setTitle,
@@ -56,7 +83,8 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         setNotes,
         getTodoList,
         addToTodoList,
-        removeFromTodoList
+        removeFromTodoList,
+        generatePropertyElement
     };
 
 };

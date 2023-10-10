@@ -5,9 +5,12 @@ import project from "./modules/project_object";
 import todoModal from "./modules/modals/todo_modal";
 import projectModal from "./modules/modals/project_modal";
 
+const projectHtml = projectModal.getHtml();
+const projectInfo = projectModal.getInfo();
+
 const renderBody = (elements) => {
     const stack = elements.slice().reverse();
-    document.body.replaceChildren(projectModal.getHtml(), addProjectButton, ...stack);
+    document.body.replaceChildren(projectHtml, addProjectButton, ...stack);
 }
 
 const bodyElements = [];
@@ -24,22 +27,52 @@ const addProjectButton = (() => {
 renderBody(bodyElements);
 
 addProjectButton.addEventListener("click", () => {
-    projectModal.getHtml().showModal();
+    projectHtml.showModal();
 })
 
-projectModal.getHtml().addEventListener("submit", () => {
+/* projectHtml.addEventListener("submit", () => {
     const createProject = () => {
         const container = document.createElement("div");
         const title = document.createElement("h1");
-        title.textContent = projectModal.getInfo().title;
+        title.textContent = projectInfo.title;
         const description = document.createElement("h2");
-        description.textContent = projectModal.getInfo().description;
+        description.textContent = projectInfo.description;
         const dueDate = document.createElement("h3");
-        dueDate.textContent = projectModal.getInfo().due;
+        dueDate.textContent = projectInfo.due;
         const priority = document.createElement("h4");
-        priority.textContent = projectModal.getInfo().priority;
+        priority.textContent = projectInfo.priority;
         const notes = document.createElement("p");
-        notes.textContent = projectModal.getInfo().notes;
+        notes.textContent = projectInfo.notes;
+        container.append(
+            title,
+            description,
+            dueDate,
+            priority,
+            notes
+        )
+        return container;
+    }
+    bodyElements.push(createProject());
+    renderBody(bodyElements);
+}) */
+
+projectHtml.addEventListener("submit", () => {
+    const createProject = () => {
+
+        const newProject = project(projectInfo.title, projectInfo.description, projectInfo.due, projectInfo.priority, projectInfo.notes)
+
+        const container = document.createElement("div");
+
+        const title = newProject.generatePropertyElement(newProject.getTitle);
+
+        const description = newProject.generatePropertyElement(newProject.getDescription);
+
+        const dueDate = newProject.generatePropertyElement(newProject.getDueDate);
+
+        const priority = newProject.generatePropertyElement(newProject.getPriority);
+
+        const notes = newProject.generatePropertyElement(newProject.getNotes);
+
         container.append(
             title,
             description,
