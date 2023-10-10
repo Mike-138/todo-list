@@ -18,10 +18,11 @@ dialog {
     }
 }
 
+/* The modal form is designed to be a dynamic 2 column grid */
 form[method="dialog"] {
     padding: 2em;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
     gap: 2em;
 }
 
