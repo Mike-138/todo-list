@@ -139,7 +139,7 @@ const modalFactory = (modalId) => {
     });
 
     // Store form information in _modalDialog.information object
-    _modalForm.addEventListener("submit", () => {
+    _modalDialog.addEventListener("submit", () => {
         _modalDialog.information = {};
         for (let field of _formFields) {
             _modalDialog.information[field.name.toLowerCase()] = field.value;
