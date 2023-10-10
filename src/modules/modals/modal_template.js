@@ -34,7 +34,8 @@ const modalFactory = (modalId) => {
 
     const _fieldFactory = (divType, {inputType, required = false, options = []} = {}) => {
 
-        const makeField = (inputName, inputId) => {
+        // Function keyword required to keep context of this within object
+        const makeField = function(inputName, inputId) {
 
             const field = document.createElement(divType);
             field.setAttribute("name", inputName);
@@ -79,7 +80,8 @@ const modalFactory = (modalId) => {
 
     const makeNotesField = _fieldFactory("textarea");
 
-    const makeHeader = (size, content) => {
+    // Function keyword required to keep context of this within object
+    const makeHeader = function(size, content) {
 
         const header = document.createElement(size);
         header.textContent = content;

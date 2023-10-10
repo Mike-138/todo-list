@@ -2,13 +2,14 @@ import modalFactory from "./modal_template";
 
 const createProjectModal = modalFactory("projectDialog");
 
-createProjectModal.makeHeader("h1", "Create a project!");
-createProjectModal.makeTitleField("Title", "projectTitle")
-createProjectModal.makeDescriptionField("Description", "projectDescription")
-createProjectModal.makeDueDateField("Due", "projectDueDate")
-createProjectModal.makePriorityField("Priority", "projectPriority")
-createProjectModal.makeNotesField("Notes", "projectNotes")
-
-const projectModal = createProjectModal.build();
+const projectModal = (createProjectModal
+    .makeHeader("h1", "Create a project!")
+    .makeTitleField("Title", "projectTitle")
+    .makeDescriptionField("Description", "projectDescription")
+    .makeDueDateField("Due", "projectDueDate")
+    .makePriorityField("Priority", "projectPriority")
+    .makeNotesField("Notes", "projectNotes")
+    .build()
+    );
 
 export default projectModal;
