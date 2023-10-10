@@ -18,13 +18,13 @@ const modalFactory = (modalId) => {
     _confirmButton.textContent = "Add";
 
     // Define private methods
-    const _packageField = (field, fieldName) => {
+    const _packageField = (field) => {
 
         const fieldContainer = document.createElement("div");
         fieldContainer.classList.add("field-container");
         const fieldLabel = document.createElement("label");
         fieldLabel.setAttribute("for", field.id);
-        fieldLabel.textContent = fieldName;
+        fieldLabel.textContent = field.name;
     
         fieldContainer.append(fieldLabel, field);
     
@@ -34,7 +34,7 @@ const modalFactory = (modalId) => {
 
     const _fieldFactory = (divType, {inputType, required = false, options = []} = {}) => {
 
-        // Function keyword required to keep context of this within object
+        // Function keyword over arrow function to attach "this" to an object and not to the outer function where it is defined
         const makeField = function(inputName, inputId) {
 
             const field = document.createElement(divType);
@@ -80,7 +80,7 @@ const modalFactory = (modalId) => {
 
     const makeNotesField = _fieldFactory("textarea");
 
-    // Function keyword required to keep context of this within object
+    // Function keyword over arrow function to attach "this" to an object and not to the outer function where it is defined
     const makeHeader = function(size, content) {
 
         const header = document.createElement(size);
@@ -98,7 +98,7 @@ const modalFactory = (modalId) => {
         }
 
         for (let field of _formFields) {
-            let packagedField = _packageField(field, field.name);
+            let packagedField = _packageField(field);
             _modalForm.appendChild(packagedField);
         }
 
@@ -130,13 +130,10 @@ const modalFactory = (modalId) => {
 
     // Store form information in _modalDialog.information object
     _modalForm.addEventListener("submit", () => {
-        _modalDialog.information = {
-            title: field.value,
-            description: modalDescription.value,
-            dueDate: modalDueDate.value,
-            priority: modalPriority.value,
-            notes: modalNotes.value
-        };
+        _modalDialog.information = {};
+        for (let field of _formFields) {
+            _modalDialog.information[field.name.toLowerCase()] = field.value;
+        }
         clear();
     });
 
