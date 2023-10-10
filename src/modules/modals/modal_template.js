@@ -10,7 +10,16 @@ const modalFactory = (modalId) => {
     // Define private elements
     const _modalDialog = document.createElement("dialog");
     _modalDialog.setAttribute("id", modalId);
-    _modalDialog.information = {};
+
+    const _info = {};
+
+    const getInfo = () => _info;
+
+    const __setInfo = () => {
+        for (let field of _formFields) {
+            _info[field.name] = field.value;
+        }
+    }
 
     const _modalForm = document.createElement("form");
     _modalForm.setAttribute("method", "dialog");
@@ -118,17 +127,21 @@ const modalFactory = (modalId) => {
         _modalForm.appendChild(_confirmButton);
 
         _modalDialog.appendChild(_modalForm)
-        return _modalDialog;
+
+        return {
+            html: _modalDialog,
+            getInfo
+        };
 
     };
 
     // Clear form
     const clear = () => {
-        for (let item of _formFields) {
-            if (item.tagName === "SELECT") {
-                item.value = item.firstChild.value;
+        for (let field of _formFields) {
+            if (field.tagName === "SELECT") {
+                field.value = field.firstChild.value;
             } else {
-                item.value = "";
+                field.value = "";
             }
         }
     };
@@ -140,11 +153,9 @@ const modalFactory = (modalId) => {
         _modalDialog.close();
     });
 
-    // Store form information in _modalDialog.information object
+    // Store form information in info object
     _modalDialog.addEventListener("submit", () => {
-        for (let field of _formFields) {
-            _modalDialog.information[field.name] = field.value;
-        }
+        __setInfo();
         clear();
     });
 
