@@ -10,6 +10,7 @@ const modalFactory = (modalId) => {
     // Define private elements
     const _modalDialog = document.createElement("dialog");
     _modalDialog.setAttribute("id", modalId);
+    _modalDialog.information = {};
 
     const _modalForm = document.createElement("form");
     _modalForm.setAttribute("method", "dialog");
@@ -141,9 +142,8 @@ const modalFactory = (modalId) => {
 
     // Store form information in _modalDialog.information object
     _modalDialog.addEventListener("submit", () => {
-        _modalDialog.information = {};
         for (let field of _formFields) {
-            _modalDialog.information[field.name.toLowerCase()] = field.value;
+            _modalDialog.information[field.name] = field.value;
         }
         clear();
     });
