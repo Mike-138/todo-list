@@ -136,7 +136,7 @@ const modalFactory = (modalId) => {
     };
 
     // Clear form
-    const clear = () => {
+    const __clear = () => {
         for (let field of _formFields) {
             if (field.tagName === "SELECT") {
                 field.value = field.firstChild.value;
@@ -149,14 +149,14 @@ const modalFactory = (modalId) => {
     // Cancel form
     _cancelButton.addEventListener("click", (event) => {
         event.preventDefault();
-        clear();
+        __clear();
         _modalDialog.close();
     });
 
     // Store form information in info object
     _modalDialog.addEventListener("submit", () => {
         __setInfo();
-        clear();
+        __clear();
     });
 
     return {
