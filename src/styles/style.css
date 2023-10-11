@@ -26,3 +26,7 @@ body {
     border: 5px solid gray;
     border-radius: 10px;
 }
+
+.project > *:empty {
+    display: none;
+}
