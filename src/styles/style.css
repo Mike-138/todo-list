@@ -19,12 +19,30 @@ body {
 
 .add-project-button {
     position: fixed;
-    top: 5rem;
+    top: 4rem;
     right: 5rem;
     height: 5rem;
     width: 5rem;
-    border: 5px solid gray;
-    border-radius: 10px;
+    background-color: aquamarine;
+    border: none;
+    outline: none; /* Set to none to make button only clickable within border radius */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 50%;
+    transition: all 100ms;
+    overflow: hidden; /* Prevents content in button from overflowing beyond border radius */
+}
+
+.add-project-button:hover {
+    transform: scale(1.1);
+}
+
+.add-project-button > img {
+    border-radius: 50%;
+}
+
+.project {
+    background-color: gray;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .project > *:empty {
