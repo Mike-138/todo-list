@@ -1,3 +1,6 @@
+import { format } from "date-fns";
+
+
 const project = (title, description, dueDate, priority, notes, ...items) => {
 
     const _createContainer = (tag) => {
@@ -34,6 +37,13 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
     const setDueDate = (date) => {
         dueDate = date;
     };
+
+    const getFormattedDueDate = () => {
+        const year = Number(dueDate.slice(0, 4));
+        const month = Number(dueDate.slice(5, 7));
+        const day = Number(dueDate.slice(8, 10));
+        return format(new Date(year, month, day), "PPP");
+    }
 
     const getPriority = () => priority;
 
@@ -81,7 +91,7 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         const description = _addSubtitleElement(getDescription());
         description.classList.add("description");
 
-        const dueDate = _addKeyElement(getDueDate());
+        const dueDate = _addKeyElement(getFormattedDueDate());
         dueDate.classList.add("due");
 
         const priority = _addKeyElement(getPriority());
@@ -108,6 +118,7 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         setDescription,
         getDueDate,
         setDueDate,
+        getFormattedDueDate,
         getPriority,
         setPriority,
         getNotes,
