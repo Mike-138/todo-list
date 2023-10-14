@@ -18,6 +18,14 @@ const todoItem = (title, description, dueDate, priority, notes) => {
         dueDate = date;
     };
 
+    const getFormattedDueDate = () => {
+        const year = Number(dueDate.slice(0, 4));
+        // Subtract one to correct index for formatting
+        const month = Number(dueDate.slice(5, 7)) - 1;
+        const day = Number(dueDate.slice(8, 10));
+        return format(new Date(year, month, day), "PPP");
+    }
+
     const getPriority = () => priority;
 
     const setPriority = (value) => {
@@ -37,6 +45,7 @@ const todoItem = (title, description, dueDate, priority, notes) => {
         setDescription,
         getDueDate,
         setDueDate,
+        getFormattedDueDate,
         getPriority,
         setPriority,
         getNotes,
