@@ -40,7 +40,8 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
 
     const getFormattedDueDate = () => {
         const year = Number(dueDate.slice(0, 4));
-        const month = Number(dueDate.slice(5, 7));
+        // Subtract one to correct index for formatting
+        const month = Number(dueDate.slice(5, 7)) - 1;
         const day = Number(dueDate.slice(8, 10));
         return format(new Date(year, month, day), "PPP");
     }
