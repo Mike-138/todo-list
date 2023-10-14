@@ -1,3 +1,12 @@
+:root {
+    --primary-color: #35495e;
+    --secondary-color: #347474;
+    --tertiary-color: #42b883;
+    --widget-color: #ff7e67;
+    --font-color: #fcfefe;
+    --background-gradient: linear-gradient(rgb(182, 244, 146), rgb(51, 139, 147));
+}
+
 html {
     box-sizing: border-box;
 }
@@ -16,6 +25,7 @@ body {
     display: grid;
     gap: 1rem;
     grid-auto-rows: min-content;
+    background: var(--background-gradient);
 }
 
 .add-project-button {
@@ -24,7 +34,7 @@ body {
     right: 5rem;
     height: 5rem;
     width: 5rem;
-    background-color: aquamarine;
+    background: var(--tertiary-color);
     border: none;
     outline: none; /* Set to none to make button only clickable within border radius */
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -45,7 +55,8 @@ body {
     padding: 1rem;
     display: grid;
     gap: 0.5rem;
-    background-color: gray;
+    color: var(--font-color);
+    background: var(--primary-color);
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

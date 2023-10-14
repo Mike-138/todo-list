@@ -1,4 +1,6 @@
 import "../../styles/modal.css";
+import checkIcon from "../../assets/icons/check.svg";
+import closeIcon from "../../assets/icons/close.svg";
 
 
 const modalFactory = (modalId) => {
@@ -16,11 +18,23 @@ const modalFactory = (modalId) => {
     const _modalForm = document.createElement("form");
     _modalForm.setAttribute("method", "dialog");
 
-    const _cancelButton = document.createElement("button");
-    _cancelButton.textContent = "Cancel";
+    const _cancelButton = (() => {
+        const button = document.createElement("button");
+        button.classList.add("cancel-button");
+        const image = new Image();
+        image.src = closeIcon;
+        button.appendChild(image);
+        return button;
+    })();
 
-    const _confirmButton = document.createElement("button");
-    _confirmButton.textContent = "Add";
+    const _confirmButton = (() => {
+        const button = document.createElement("button");
+        button.classList.add("confirm-button");
+        const image = new Image();
+        image.src = checkIcon;
+        button.appendChild(image);
+        return button;
+    })();
 
     // Define private methods
     const _packageField = (field) => {
@@ -35,6 +49,7 @@ const modalFactory = (modalId) => {
         if (field.tagName === "TEXTAREA") {
 
             fieldContainer.classList.add("wide");
+            field.setAttribute("rows", 4);
 
         }
     

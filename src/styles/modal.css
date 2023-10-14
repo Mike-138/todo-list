@@ -1,10 +1,22 @@
+:root {
+    --primary-color: #35495e;
+    --secondary-color: #347474;
+    --tertiary-color: #42b883;
+    --widget-color: #ff7e67;
+    --font-color: #fcfefe;
+}
+
 dialog {
     font-size: 1rem;
     text-transform: uppercase;
     position: absolute;
     top: 50%;
     left: 50%;
+    color: var(--font-color);
+    background: var(--tertiary-color);
+    border: none;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transform: translate(-50%, -50%);
     animation: grow 200ms;
 }
@@ -29,22 +41,28 @@ form[method="dialog"] {
 input, select, textarea {
     padding: 0.25em;
     letter-spacing: 0.05em;
+    background-color: var(--secondary-color);
+    border: none;
+    outline: none;
+    border-radius: 5px;
 }
 
-form[method="dialog"] > button {
-    font-size: 3em;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: white;
+form[method="dialog"] > button > img {
+    height: 5em;
 }
 
 form[method="dialog"] > button:first-of-type {
-    background-color: red;
+    background-color: #f95959;
+    border: none;
+    outline: none;
+    border-radius: 5px;
 }
 
 form[method="dialog"] > button:last-of-type {
-    background-color: green;
+    background-color: #a1dd70;
+    border: none;
+    outline: none;
+    border-radius: 5px;
 }
 
 .field-container {
@@ -53,8 +71,9 @@ form[method="dialog"] > button:last-of-type {
 }
 
 .field-container > label {
-    font-size: 0.75em;
+    font-size: 0.9em;
     letter-spacing: 0.1em;
+    padding-left: 0.5em;
 }
 
 .field-container > input, .field-container > select {
