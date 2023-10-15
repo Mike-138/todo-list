@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import plusIcon from "../assets/icons/plus.svg";
 
 
 const project = (title, description, dueDate, priority, notes, ...items) => {
@@ -104,12 +105,22 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         const notes = _addBodyElement(getNotes());
         notes.classList.add("notes");
 
+        const addTodoButton = (() => {
+            const button = document.createElement("button");
+            button.classList.add("add-todo-button");
+            const image = new Image();
+            image.src = plusIcon;
+            button.appendChild(image);
+            return button;
+        })();
+
         innerContainer.append(
             title,
             description,
             dueDate,
             priority,
-            notes
+            notes,
+            addTodoButton
         );
 
         container.appendChild(innerContainer);
