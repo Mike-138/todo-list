@@ -5,12 +5,14 @@ import project from "./modules/project_object";
 import todoModal from "./modules/modals/todo_modal";
 import projectModal from "./modules/modals/project_modal";
 
-const modalHtml = projectModal.getHtml();
-const modalInfo = projectModal.getInfo();
+const projectModalHtml = projectModal.getHtml();
+const projectModalInfo = projectModal.getInfo();
+const todoModalHtml = todoModal.getHtml();
+const todoModalInfo = todoModal.getInfo()
 
 const renderBody = (elements) => {
     const stack = elements.slice().reverse();
-    document.body.replaceChildren(modalHtml, addProjectButton, ...stack);
+    document.body.replaceChildren(projectModalHtml, todoModalHtml, addProjectButton, ...stack);
 }
 
 const bodyElements = [project("Test", "Test", "2023-02-02", "high", "Some generic notes.").createCard()]; // temp
@@ -27,12 +29,19 @@ const addProjectButton = (() => {
 renderBody(bodyElements);
 
 addProjectButton.addEventListener("click", () => {
-    modalHtml.showModal();
+    projectModalHtml.showModal();
 })
 
-modalHtml.addEventListener("submit", () => {
-    let newProject = project().fromObject(modalInfo);
+projectModalHtml.addEventListener("submit", () => {
+    let newProject = project().fromObject(projectModalInfo);
     let newProjectCard = newProject.createCard();
     bodyElements.push(newProjectCard);
+    renderBody(bodyElements);
+})
+
+todoModalHtml.addEventListener("submit", () => {
+    let newTodo = todoItem().fromObject(todoModalInfo);
+    let newTodoCard = newTodo.createCard();
+    bodyElements.push(newTodoCard);
     renderBody(bodyElements);
 })

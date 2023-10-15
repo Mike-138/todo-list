@@ -114,6 +114,11 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
             return button;
         })();
 
+        addTodoButton.addEventListener("click", () => {
+            const modalHtml = document.getElementById("todoDialog");
+            modalHtml.showModal();
+        })
+
         innerContainer.append(
             title,
             description,
