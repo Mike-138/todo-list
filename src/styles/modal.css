@@ -41,6 +41,7 @@ form[method="dialog"] {
 input, select, textarea {
     padding: 0.25em;
     letter-spacing: 0.05em;
+    color: var(--font-color);
     background-color: var(--secondary-color);
     border: none;
     outline: none;

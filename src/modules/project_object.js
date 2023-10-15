@@ -86,6 +86,9 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         const container = document.createElement("div");
         container.classList.add("project");
 
+        const innerContainer = document.createElement("div");
+        innerContainer.classList.add("project-content");
+
         const title = _addTitleElement(getTitle());
         title.classList.add("title");
 
@@ -101,13 +104,15 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         const notes = _addBodyElement(getNotes());
         notes.classList.add("notes");
 
-        container.append(
+        innerContainer.append(
             title,
             description,
             dueDate,
             priority,
             notes
         );
+
+        container.appendChild(innerContainer);
 
         return container;
     };
