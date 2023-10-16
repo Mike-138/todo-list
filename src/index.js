@@ -15,7 +15,7 @@ const renderBody = (elements) => {
     document.body.replaceChildren(projectModalHtml, todoModalHtml, addProjectButton, ...stack);
 }
 
-const bodyElements = [project("Test", "Test", "2023-02-02", "high", "Some generic notes.").createCard()]; // temp
+const bodyElements = [];
 
 const addProjectButton = (() => {
     const button = document.createElement("button");
@@ -53,7 +53,11 @@ projectModalHtml.addEventListener("submit", () => {
         modalHtml.showModal();
     })
 
-    newProjectCard.appendChild(addTodoButton);
+    newProjectCard.addEventListener("click", () => {
+        newProjectCard.classList.toggle("expand");
+    });
+
+    newProjectCard.firstChild.appendChild(addTodoButton);
     renderBody(bodyElements);
 })
 
