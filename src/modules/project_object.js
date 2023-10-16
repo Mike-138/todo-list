@@ -105,27 +105,12 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         const notes = _addBodyElement(getNotes());
         notes.classList.add("notes");
 
-        const addTodoButton = (() => {
-            const button = document.createElement("button");
-            button.classList.add("add-todo-button");
-            const image = new Image();
-            image.src = plusIcon;
-            button.appendChild(image);
-            return button;
-        })();
-
-        addTodoButton.addEventListener("click", () => {
-            const modalHtml = document.getElementById("todoDialog");
-            modalHtml.showModal();
-        })
-
         innerContainer.append(
             title,
             description,
             dueDate,
             priority,
             notes,
-            addTodoButton
         );
 
         container.appendChild(innerContainer);
