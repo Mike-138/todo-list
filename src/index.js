@@ -53,11 +53,16 @@ projectModalHtml.addEventListener("submit", () => {
         modalHtml.showModal();
     })
 
+    newProjectCard.firstChild.appendChild(addTodoButton);
+
+    const todoContainer = document.createElement("div");
+    todoContainer.classList.add("todo-container", "hidden");
+    newProjectCard.appendChild(todoContainer);
+
     newProjectCard.addEventListener("click", () => {
-        newProjectCard.classList.toggle("expand");
+        newProjectCard.lastChild.classList.toggle("hidden");
     });
 
-    newProjectCard.firstChild.appendChild(addTodoButton);
     renderBody(bodyElements);
 })
 
@@ -65,6 +70,6 @@ todoModalHtml.addEventListener("submit", () => {
     const newTodo = todoItem().fromObject(todoModalInfo);
     const newTodoCard = newTodo.createCard();
     const currentProjectCard = bodyElements[todoModalHtml.dataset.index]
-    currentProjectCard.appendChild(newTodoCard);
+    currentProjectCard.lastChild.appendChild(newTodoCard);
     renderBody(bodyElements);
 })
