@@ -4,6 +4,7 @@ import todoItem from "./modules/todo_object";
 import project from "./modules/project_object";
 import todoModal from "./modules/modals/todo_modal";
 import projectModal from "./modules/modals/project_modal";
+import buttonFactory from "./modules/button_factory";
 
 const projectModalHtml = projectModal.getHtml();
 const projectModalInfo = projectModal.getInfo();
@@ -12,48 +13,36 @@ const todoModalInfo = todoModal.getInfo();
 
 const renderBody = (elements) => {
     const stack = elements.slice().reverse();
-    document.body.replaceChildren(projectModalHtml, todoModalHtml, addProjectButton, ...stack);
+    document.body.replaceChildren(projectModalHtml, todoModalHtml, projectButton, ...stack);
 }
 
 const bodyElements = [];
 
-const addProjectButton = (() => {
-    const button = document.createElement("button");
-    button.classList.add("add-project-button");
-    const image = new Image();
-    image.src = plusIcon;
-    button.appendChild(image);
-    return button;
-})();
+const projectButton = buttonFactory().addContentImage(plusIcon).build();
+projectButton.classList.add("add-project-button");
 
-renderBody(bodyElements);
-
-addProjectButton.addEventListener("click", () => {
+projectButton.addEventListener("click", () => {
     projectModalHtml.showModal();
 })
+
+renderBody(bodyElements);
 
 projectModalHtml.addEventListener("submit", () => {
     const newProject = project().fromObject(projectModalInfo);
     const newProjectCard = newProject.createCard();
     bodyElements.push(newProjectCard);
 
-    const addTodoButton = (() => {
-        const button = document.createElement("button");
-        button.classList.add("add-todo-button");
-        const image = new Image();
-        image.src = plusIcon;
-        button.appendChild(image);
-        return button;
-    })();
+    const taskButton = buttonFactory().addContentImage(plusIcon).build();
+    taskButton.classList.add("add-todo-button");
 
-    addTodoButton.addEventListener("click", () => {
+    taskButton.addEventListener("click", () => {
         const modalHtml = document.getElementById("todoDialog");
         const projectIndex = bodyElements.indexOf(newProjectCard);
         modalHtml.setAttribute("data-index", projectIndex)
         modalHtml.showModal();
     })
 
-    newProjectCard.firstChild.appendChild(addTodoButton);
+    newProjectCard.firstChild.appendChild(taskButton);
 
     const todoContainer = document.createElement("div");
     todoContainer.classList.add("todo-container", "hidden");
