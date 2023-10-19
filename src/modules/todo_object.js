@@ -12,7 +12,7 @@ const todoItem = (title, dueDate, priority) => {
         return addContent;
     };
 
-    const _addTitleElement = _createContainer("h1");
+    const _addTitleElement = _createContainer("label");
 
     const _addKeyElement = _createContainer("h4")
 
@@ -43,7 +43,7 @@ const todoItem = (title, dueDate, priority) => {
     };
 
     const fromObject = function(obj) {
-        const { title = "", description = "", due = "", priority = "", notes = "" } = obj;
+        const { title = "", due = "", priority = ""} = obj;
         setTitle(title);
         setDueDate(due);
         setPriority(priority);
@@ -58,14 +58,30 @@ const todoItem = (title, dueDate, priority) => {
         const innerContainer = document.createElement("div");
         innerContainer.classList.add("task-content");
 
-        const title = _addTitleElement(getTitle());
-        title.classList.add("title");
+        const title = (() => {
+
+            const container = document.createElement("div");
+            container.classList.add("title");
+
+            const checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+
+            checkbox.addEventListener("click", (e) => {
+                e.stopPropagation();
+            });
+
+            const label = _addTitleElement(getTitle());
+            container.append(checkbox, label);
+
+            return container;
+        })();
 
         const dueDate = _addKeyElement(getFormattedDueDate());
         dueDate.classList.add("due");
 
         const priority = _addKeyElement(getPriority());
         priority.classList.add("priority");
+
         innerContainer.append(
             title,
             dueDate,

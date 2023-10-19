@@ -62,10 +62,12 @@ body {
 }
 
 .project {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
     padding: 1rem;
     display: grid;
     grid-template-rows: min-content;
-    gap: 1rem;
+    gap: 1.5rem;
     color: var(--font-color);
     background: var(--primary-color);
     border-radius: 10px;
@@ -85,7 +87,7 @@ body {
 .project-content {
     width: calc(100% - 12rem); /* 12rem = width of add project button (5rem) + 2 * button distance from edge (10rem) - padding (2rem) - 1rem (look and feel) */
     display: grid;
-    gap: 0.5rem;
+    gap: 1rem;
     border-right: 0.25rem solid var(--secondary-color);
 }
 
@@ -98,21 +100,53 @@ body {
     width: 5rem;
 }
 
-.due::before {
-    content: "Due: ";
+.description {
+    font-weight: normal;
 }
 
-.priority::before {
-    content: "Priority: "
+.description::before {
+    content: "Description";
+    padding-left: 0.5em;
+    font-size: 0.5em;
+    font-weight: initial;
+    display: block;
+    text-transform: uppercase;
+}
+
+.due {
+    text-transform: uppercase;
+}
+
+.due::before {
+    content: "Due";
+    padding-left: 0.5em;
+    font-size: 0.75em;
+    font-weight: initial;
+    display: block;
+    text-transform: uppercase;
+}
+
+.priority {
+    text-transform: uppercase;
+}
+
+.priority::after {
+    content: " Priority";
+    text-transform: uppercase;
 }
 
 .notes::before {
-    content: "Notes:";
+    content: "Notes";
+    padding-left: 0.5em;
+    font-size: 0.75em;
     display: block;
+    text-transform: uppercase;
 }
 
 .task {
-    padding: 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    padding: 1rem 2rem;
     color: var(--font-color);
     background: var(--secondary-color);
     border-radius: 10px;
@@ -120,10 +154,26 @@ body {
 }
 
 .task-content {
-    width: calc(100% - 12rem); /* 12rem = width of add project button (5rem) + 2 * button distance from edge (10rem) - padding (2rem) - 1rem (look and feel) */
-    display: grid;
-    gap: 0.5rem;
-    border-right: 0.25rem solid var(--secondary-color);
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+}
+
+.task-content > .title {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+.task-content > .title > label {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+input[type="checkbox"] {
+    width: 2em;
+    height: 2em;
+    margin-right: 1em;
 }
 
 .task-content > *:empty {
