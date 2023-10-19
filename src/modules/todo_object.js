@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 
 
-const todoItem = (title, description, dueDate, priority, notes) => {
+const todoItem = (title, dueDate, priority) => {
 
     const _createContainer = (tag) => {
         const addContent = (content) => {
@@ -14,22 +14,12 @@ const todoItem = (title, description, dueDate, priority, notes) => {
 
     const _addTitleElement = _createContainer("h1");
 
-    const _addSubtitleElement = _createContainer("h2")
-
     const _addKeyElement = _createContainer("h4")
-
-    const _addBodyElement = _createContainer("p");
 
     const getTitle = () => title;
 
     const setTitle = (string) => {
         title = string;
-    };
-
-    const getDescription = () => description;
-
-    const setDescription = (string) => {
-        description = string;
     };
 
     const getDueDate = () => dueDate;
@@ -52,19 +42,11 @@ const todoItem = (title, description, dueDate, priority, notes) => {
         priority = value;
     };
 
-    const getNotes = () => notes;
-
-    const setNotes = (string) => {
-        notes = string;
-    };
-
     const fromObject = function(obj) {
         const { title = "", description = "", due = "", priority = "", notes = "" } = obj;
         setTitle(title);
-        setDescription(description);
         setDueDate(due);
         setPriority(priority);
-        setNotes(notes);
         return this;
     }
 
@@ -79,24 +61,15 @@ const todoItem = (title, description, dueDate, priority, notes) => {
         const title = _addTitleElement(getTitle());
         title.classList.add("title");
 
-        const description = _addSubtitleElement(getDescription());
-        description.classList.add("description");
-
         const dueDate = _addKeyElement(getFormattedDueDate());
         dueDate.classList.add("due");
 
         const priority = _addKeyElement(getPriority());
         priority.classList.add("priority");
-
-        const notes = _addBodyElement(getNotes());
-        notes.classList.add("notes");
-
         innerContainer.append(
             title,
-            description,
             dueDate,
             priority,
-            notes,
         );
 
         container.appendChild(innerContainer);
@@ -107,15 +80,11 @@ const todoItem = (title, description, dueDate, priority, notes) => {
     return {
         getTitle,
         setTitle,
-        getDescription,
-        setDescription,
         getDueDate,
         setDueDate,
         getFormattedDueDate,
         getPriority,
         setPriority,
-        getNotes,
-        setNotes,
         fromObject,
         createCard
     };

@@ -45,11 +45,13 @@ projectModalHtml.addEventListener("submit", () => {
     newProjectCard.firstChild.appendChild(taskButton);
 
     const todoContainer = document.createElement("div");
-    todoContainer.classList.add("todo-container", "hidden");
+    todoContainer.classList.add("todo-container");
     newProjectCard.appendChild(todoContainer);
 
     newProjectCard.addEventListener("click", () => {
-        newProjectCard.lastChild.classList.toggle("hidden");
+        if (newProjectCard.lastChild.hasChildNodes()) {
+            newProjectCard.lastChild.classList.toggle("hidden");
+        }
     });
 
     renderBody(bodyElements);

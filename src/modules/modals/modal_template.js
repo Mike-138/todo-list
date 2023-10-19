@@ -48,9 +48,12 @@ const modalFactory = (modalId) => {
 
         if (field.tagName === "TEXTAREA") {
 
-            fieldContainer.classList.add("wide");
             field.setAttribute("rows", 4);
 
+        }
+
+        if (field.dataset.width === "wide") {
+            fieldContainer.classList.add("wide");
         }
     
         fieldContainer.append(fieldLabel, field);
@@ -62,7 +65,7 @@ const modalFactory = (modalId) => {
     const _fieldFactory = (divType, inputName, {inputType, required = false, options = []} = {}) => {
 
         // Function keyword over arrow function to attach "this" to an object and not to the outer function where it is defined
-        const makeField = function(inputId) {
+        const makeField = function(inputId, wide = false) {
 
             const field = document.createElement(divType);
             field.setAttribute("name", inputName);
@@ -85,6 +88,10 @@ const modalFactory = (modalId) => {
     
             if (required) {
                 field.setAttribute("required", "");
+            }
+
+            if (wide) {
+                field.setAttribute("data-width", "wide");
             }
             
             _formFields.push(field);
@@ -112,11 +119,14 @@ const modalFactory = (modalId) => {
     const makeNotesField = _fieldFactory("textarea", "notes");
 
     // Function keyword over arrow function to attach "this" to an object and not to the outer function where it is defined
-    const makeHeader = function(size, content) {
+    const makeHeader = function(size, content, wide = true) {
 
         const header = document.createElement(size);
         header.textContent = content;
-        header.classList.add("wide", "center");
+
+        if (wide) {
+            header.classList.add("wide", "center");
+        }
 
         _formHeaders.push(header);
         return this;

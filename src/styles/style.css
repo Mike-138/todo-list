@@ -129,3 +129,7 @@ body {
 .task-content > *:empty {
     display: none;
 }
+
+.field-container:has(#todoTitle) {
+    grid-column: span 2;
+}
