@@ -3,6 +3,19 @@ import { format } from "date-fns";
 
 const todoItem = (title, dueDate, priority) => {
 
+    let _status = "Incomplete";
+
+    const getStatus = () => _status;
+
+    const setStatusComplete = () => {
+        _status = "Complete";
+    }
+
+    const setStatusIncomplete = () => {
+        _status = "Incomplete";
+    }
+
+
     const _createContainer = (tag) => {
         const addContent = (content) => {
             const container = document.createElement(tag);
@@ -14,7 +27,7 @@ const todoItem = (title, dueDate, priority) => {
 
     const _addTitleElement = _createContainer("label");
 
-    const _addKeyElement = _createContainer("h4")
+    const _addKeyElement = _createContainer("h4");
 
     const getTitle = () => title;
 
@@ -60,20 +73,42 @@ const todoItem = (title, dueDate, priority) => {
 
         const title = (() => {
 
-            const container = document.createElement("div");
-            container.classList.add("title");
-
             const checkbox = document.createElement("input");
+            checkbox.setAttribute("name", "status");
             checkbox.setAttribute("type", "checkbox");
 
             checkbox.addEventListener("click", (e) => {
+                // Prevent parent onclick event
                 e.stopPropagation();
+
+                if (checkbox.checked) {
+
+                    setStatusComplete();
+                    let currentStatus = _addKeyElement(getStatus());
+                    currentStatus.classList.add("status");
+
+                    innerContainer.replaceChildren(
+                        title,
+                        currentStatus
+                    );
+                } else {
+
+                    setStatusIncomplete();
+
+                    innerContainer.replaceChildren(
+                        title,
+                        dueDate,
+                        priority,
+                    );
+                }
+
             });
 
             const label = _addTitleElement(getTitle());
-            container.append(checkbox, label);
+            label.classList.add("title");
+            label.prepend(checkbox);
 
-            return container;
+            return label;
         })();
 
         const dueDate = _addKeyElement(getFormattedDueDate());
