@@ -5,9 +5,32 @@ import plusIcon from "../assets/icons/plus.svg";
 const project = (title, description, dueDate, priority, notes, ...items) => {
 
     const _createContainer = (tag) => {
+
         const addContent = (content) => {
             const container = document.createElement(tag);
             container.textContent = content;
+
+            container.addEventListener("dblclick", () => {
+                const entry = document.createElement("input");
+                entry.setAttribute("type", "text");
+                entry.value = container.textContent;
+
+                const handleEntry = () => {
+                    container.textContent = entry.value;
+                    entry.parentNode.replaceChild(container, entry);
+                }
+
+                entry.addEventListener("blur", handleEntry);
+                entry.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter") {
+                        handleEntry();
+                    }
+                });
+
+                container.parentNode.replaceChild(entry, container);
+                entry.focus();
+            });
+
             return container;
         };
         return addContent;

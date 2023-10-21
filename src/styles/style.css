@@ -91,8 +91,9 @@ body {
     border-right: 0.25rem solid var(--secondary-color);
 }
 
-.project-content > *:empty {
-    display: none;
+.project-content > *:empty::after {
+    content: "None";
+    color: gray;
 }
 
 .add-todo-button {
