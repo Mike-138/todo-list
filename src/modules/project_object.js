@@ -6,24 +6,68 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
 
     const _createContainer = (tag) => {
 
-        const addContent = (content) => {
+        const addContent = (contentGetter) => {
             const container = document.createElement(tag);
-            container.textContent = content;
+            container.textContent = contentGetter();
 
             container.addEventListener("dblclick", () => {
-                const entry = document.createElement("input");
-                entry.setAttribute("type", "text");
-                entry.value = container.textContent;
+                let entry;
+                let contentSetter;
+
+                switch (contentGetter) {
+                    case getTitle:
+                        contentSetter = setTitle;
+                        entry = document.createElement("input");
+                        entry.value = container.textContent;
+                        entry.setAttribute("type", "input");
+                        break;
+
+                    case getDescription:
+                        contentSetter = setDescription;
+                        entry = document.createElement("input");
+                        entry.value = container.textContent;
+                        entry.setAttribute("type", "input");
+                        break;
+                    
+                    case getFormattedDueDate:
+                        contentSetter = setDueDate;
+                        entry = document.createElement("input");
+                        // Retrieve duedate as numeric string
+                        entry.value = getDueDate();
+                        entry.setAttribute("type", "date");
+                        break;
+                    
+                    case getPriority:
+                        contentSetter = setPriority;
+                        entry = document.createElement("select");
+                        entry.value = container.textContent;
+
+                        // temporarily hardcode options
+                        for (let option of ["low", "medium", "high", "urgent"]) {
+                            let currentOption = document.createElement("option");
+                            currentOption.setAttribute("value", option);
+                            currentOption.textContent = option.toUpperCase();
+                            entry.appendChild(currentOption);
+                        }
+                        break;
+                    
+                    case getNotes:
+                        contentSetter = setNotes;
+                        entry = document.createElement("textarea");
+                        entry.value = container.textContent;
+                        entry.setAttribute("rows", 4);
+                }
 
                 const handleEntry = () => {
-                    container.textContent = entry.value;
+                    contentSetter(entry.value);
+                    container.textContent = contentGetter();
                     entry.parentNode.replaceChild(container, entry);
                 }
 
                 entry.addEventListener("blur", handleEntry);
                 entry.addEventListener("keydown", (e) => {
                     if (e.key === "Enter") {
-                        handleEntry();
+                        e.target.blur();
                     }
                 });
 
@@ -113,19 +157,19 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         const innerContainer = document.createElement("div");
         innerContainer.classList.add("project-content");
 
-        const title = _addTitleElement(getTitle());
+        const title = _addTitleElement(getTitle);
         title.classList.add("title");
 
-        const description = _addSubtitleElement(getDescription());
+        const description = _addSubtitleElement(getDescription);
         description.classList.add("description");
 
-        const dueDate = _addKeyElement(getFormattedDueDate());
+        const dueDate = _addKeyElement(getFormattedDueDate);
         dueDate.classList.add("due");
 
-        const priority = _addKeyElement(getPriority());
+        const priority = _addKeyElement(getPriority);
         priority.classList.add("priority");
 
-        const notes = _addBodyElement(getNotes());
+        const notes = _addBodyElement(getNotes);
         notes.classList.add("notes");
 
         innerContainer.append(
