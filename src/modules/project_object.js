@@ -1,209 +1,204 @@
-import { format } from "date-fns";
-import plusIcon from "../assets/icons/plus.svg";
-
+import { format } from 'date-fns';
 
 const project = (title, description, dueDate, priority, notes, ...items) => {
+  const _createContainer = (tag) => {
+    const addContent = (contentGetter) => {
+      const container = document.createElement(tag);
+      container.textContent = contentGetter();
 
-    const _createContainer = (tag) => {
+      container.addEventListener('dblclick', () => {
+        let entry;
+        let contentSetter;
 
-        const addContent = (contentGetter) => {
-            const container = document.createElement(tag);
-            container.textContent = contentGetter();
+        switch (contentGetter) {
+          case getTitle:
+            contentSetter = setTitle;
+            entry = document.createElement('input');
+            entry.value = container.textContent;
+            entry.setAttribute('type', 'input');
+            break;
 
-            container.addEventListener("dblclick", () => {
-                let entry;
-                let contentSetter;
+          case getDescription:
+            contentSetter = setDescription;
+            entry = document.createElement('input');
+            entry.value = container.textContent;
+            entry.setAttribute('type', 'input');
+            break;
 
-                switch (contentGetter) {
-                    case getTitle:
-                        contentSetter = setTitle;
-                        entry = document.createElement("input");
-                        entry.value = container.textContent;
-                        entry.setAttribute("type", "input");
-                        break;
+          case getFormattedDueDate:
+            contentSetter = setDueDate;
+            entry = document.createElement('input');
 
-                    case getDescription:
-                        contentSetter = setDescription;
-                        entry = document.createElement("input");
-                        entry.value = container.textContent;
-                        entry.setAttribute("type", "input");
-                        break;
-                    
-                    case getFormattedDueDate:
-                        contentSetter = setDueDate;
-                        entry = document.createElement("input");
-                        // Retrieve duedate as numeric string
-                        entry.value = getDueDate();
-                        entry.setAttribute("type", "date");
-                        break;
-                    
-                    case getPriority:
-                        contentSetter = setPriority;
-                        entry = document.createElement("select");
-                        entry.value = container.textContent;
+            // Retrieve duedate as numeric string
+            entry.value = getDueDate();
+            entry.setAttribute('type', 'date');
+            break;
 
-                        // temporarily hardcode options
-                        for (let option of ["low", "medium", "high", "urgent"]) {
-                            let currentOption = document.createElement("option");
-                            currentOption.setAttribute("value", option);
-                            currentOption.textContent = option.toUpperCase();
-                            entry.appendChild(currentOption);
-                        }
-                        break;
-                    
-                    case getNotes:
-                        contentSetter = setNotes;
-                        entry = document.createElement("textarea");
-                        entry.value = container.textContent;
-                        entry.setAttribute("rows", 4);
-                }
+          case getPriority:
+            contentSetter = setPriority;
+            entry = document.createElement('select');
+            entry.value = container.textContent;
 
-                const handleEntry = () => {
-                    contentSetter(entry.value);
-                    container.textContent = contentGetter();
-                    entry.parentNode.replaceChild(container, entry);
-                }
+            // temporarily hardcode options
+            for (const option of ['low', 'medium', 'high', 'urgent']) {
+              const currentOption = document.createElement('option');
+              currentOption.setAttribute('value', option);
+              currentOption.textContent = option.toUpperCase();
+              entry.appendChild(currentOption);
+            }
+            break;
 
-                entry.addEventListener("blur", handleEntry);
-                entry.addEventListener("keydown", (e) => {
-                    if (e.key === "Enter") {
-                        e.target.blur();
-                    }
-                });
+          case getNotes:
+            contentSetter = setNotes;
+            entry = document.createElement('textarea');
+            entry.value = container.textContent;
+            entry.setAttribute('rows', 4);
+        }
 
-                container.parentNode.replaceChild(entry, container);
-                entry.focus();
-            });
-
-            return container;
+        const handleEntry = () => {
+          contentSetter(entry.value);
+          container.textContent = contentGetter();
+          entry.parentNode.replaceChild(container, entry);
         };
-        return addContent;
+
+        entry.addEventListener('blur', handleEntry);
+        entry.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.target.blur();
+          }
+        });
+
+        container.parentNode.replaceChild(entry, container);
+        entry.focus();
+      });
+
+      return container;
     };
+    return addContent;
+  };
 
-    const _addTitleElement = _createContainer("h1");
+  const _addTitleElement = _createContainer('h1');
 
-    const _addSubtitleElement = _createContainer("h2")
+  const _addSubtitleElement = _createContainer('h2');
 
-    const _addKeyElement = _createContainer("h4")
+  const _addKeyElement = _createContainer('h4');
 
-    const _addBodyElement = _createContainer("p");
+  const _addBodyElement = _createContainer('p');
 
-    const getTitle = () => title;
+  const getTitle = () => title;
 
-    const setTitle = (string) => {
-        title = string;
-    };
+  const setTitle = (string) => {
+    title = string;
+  };
 
-    const getDescription = () => description;
+  const getDescription = () => description;
 
-    const setDescription = (string) => {
-        description = string;
-    };
+  const setDescription = (string) => {
+    description = string;
+  };
 
-    const getDueDate = () => dueDate;
+  const getDueDate = () => dueDate;
 
-    const setDueDate = (date) => {
-        dueDate = date;
-    };
+  const setDueDate = (date) => {
+    dueDate = date;
+  };
 
-    const getFormattedDueDate = () => {
-        const year = Number(dueDate.slice(0, 4));
-        // Subtract one to correct index for formatting
-        const month = Number(dueDate.slice(5, 7)) - 1;
-        const day = Number(dueDate.slice(8, 10));
-        return format(new Date(year, month, day), "PPP");
-    }
+  const getFormattedDueDate = () => {
+    const year = Number(dueDate.slice(0, 4));
+    // Subtract one to correct index for formatting
+    const month = Number(dueDate.slice(5, 7)) - 1;
+    const day = Number(dueDate.slice(8, 10));
+    return format(new Date(year, month, day), 'PPP');
+  };
 
-    const getPriority = () => priority;
+  const getPriority = () => priority;
 
-    const setPriority = (value) => {
-        priority = value;
-    };
+  const setPriority = (value) => {
+    priority = value;
+  };
 
-    const getNotes = () => notes;
+  const getNotes = () => notes;
 
-    const setNotes = (string) => {
-        notes = string;
-    };
-    
-    const _todoList = items;
+  const setNotes = (string) => {
+    notes = string;
+  };
 
-    const getTodoList = () => _todoList;
+  const _todoList = items;
 
-    const addToTodoList = (item) => {
-        _todoList.push(item);
-    };
+  const getTodoList = () => _todoList;
 
-    const removeFromTodoList = (item) => {
-        const index = _todoList.indexOf(item);
-        _todoList.splice(index, 1);
-    };
+  const addToTodoList = (item) => {
+    _todoList.push(item);
+  };
 
-    const fromObject = function(obj) {
-        const { title = "", description = "", due = "", priority = "", notes = "" } = obj;
-        setTitle(title);
-        setDescription(description);
-        setDueDate(due);
-        setPriority(priority);
-        setNotes(notes);
-        return this;
-    }
+  const removeFromTodoList = (item) => {
+    const index = _todoList.indexOf(item);
+    _todoList.splice(index, 1);
+  };
 
-    const createCard = () => {
+  const fromObject = function (obj) {
+    const { title = '', description = '', due = '', priority = '', notes = '' } = obj;
+    setTitle(title);
+    setDescription(description);
+    setDueDate(due);
+    setPriority(priority);
+    setNotes(notes);
+    return this;
+  };
 
-        const container = document.createElement("div");
-        container.classList.add("project");
+  const createCard = () => {
+    const container = document.createElement('div');
+    container.classList.add('project');
 
-        const innerContainer = document.createElement("div");
-        innerContainer.classList.add("project-content");
+    const innerContainer = document.createElement('div');
+    innerContainer.classList.add('project-content');
 
-        const title = _addTitleElement(getTitle);
-        title.classList.add("title");
+    const title = _addTitleElement(getTitle);
+    title.classList.add('title');
 
-        const description = _addSubtitleElement(getDescription);
-        description.classList.add("description");
+    const description = _addSubtitleElement(getDescription);
+    description.classList.add('description');
 
-        const dueDate = _addKeyElement(getFormattedDueDate);
-        dueDate.classList.add("due");
+    const dueDate = _addKeyElement(getFormattedDueDate);
+    dueDate.classList.add('due');
 
-        const priority = _addKeyElement(getPriority);
-        priority.classList.add("priority");
+    const priority = _addKeyElement(getPriority);
+    priority.classList.add('priority');
 
-        const notes = _addBodyElement(getNotes);
-        notes.classList.add("notes");
+    const notes = _addBodyElement(getNotes);
+    notes.classList.add('notes');
 
-        innerContainer.append(
-            title,
-            description,
-            dueDate,
-            priority,
-            notes,
-        );
+    innerContainer.append(
+      title,
+      description,
+      dueDate,
+      priority,
+      notes
+    );
 
-        container.appendChild(innerContainer);
+    container.appendChild(innerContainer);
 
-        return container;
-    };
+    return container;
+  };
 
-    return {
-        getTitle,
-        setTitle,
-        getDescription,
-        setDescription,
-        getDueDate,
-        setDueDate,
-        getFormattedDueDate,
-        getPriority,
-        setPriority,
-        getNotes,
-        setNotes,
-        getTodoList,
-        addToTodoList,
-        removeFromTodoList,
-        fromObject,
-        createCard
-    };
-
+  return {
+    getTitle,
+    setTitle,
+    getDescription,
+    setDescription,
+    getDueDate,
+    setDueDate,
+    getFormattedDueDate,
+    getPriority,
+    setPriority,
+    getNotes,
+    setNotes,
+    getTodoList,
+    addToTodoList,
+    removeFromTodoList,
+    fromObject,
+    createCard
+  };
 };
 
 export default project;
