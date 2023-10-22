@@ -6,6 +6,10 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
       const container = document.createElement(tag);
       container.textContent = contentGetter();
 
+      if (contentGetter === getPriority) {
+        container.classList.add(contentGetter());
+      }
+
       container.addEventListener("dblclick", () => {
         let entry;
         let contentSetter;
@@ -35,9 +39,11 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
             break;
 
           case getPriority:
+
+            // Remove option class to be replaced
+            container.classList.remove(contentGetter());
             contentSetter = setPriority;
             entry = document.createElement("select");
-            entry.value = container.textContent;
 
             // temporarily hardcode options
             for (const option of ["low", "medium", "high", "urgent"]) {
@@ -46,6 +52,9 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
               currentOption.textContent = option.toUpperCase();
               entry.appendChild(currentOption);
             }
+            
+            // Must come after options loop to work
+            entry.value = container.textContent;
             break;
 
           case getNotes:
@@ -58,6 +67,12 @@ const project = (title, description, dueDate, priority, notes, ...items) => {
         const handleEntry = () => {
           contentSetter(entry.value);
           container.textContent = contentGetter();
+
+          // Add back appropriate priority class
+          if (contentGetter === getPriority) {
+            container.classList.add(contentGetter());
+          }
+
           entry.parentNode.replaceChild(container, entry);
         };
 

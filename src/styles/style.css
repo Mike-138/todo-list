@@ -140,6 +140,24 @@ body {
   text-transform: uppercase;
 }
 
+.priority.low {
+  color: black;
+  background-color: #cbf078;
+}
+
+.priority.medium {
+  color: black;
+  background-color: #f8f398;
+}
+
+.priority.high {
+  background-color: #f1b963;
+}
+
+.priority.urgent {
+  background-color: #e46161;
+}
+
 .notes::before {
   content: "Notes";
   padding-left: 0.5em;
