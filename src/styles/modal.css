@@ -1,90 +1,93 @@
 :root {
-    --primary-color: #35495e;
-    --secondary-color: #347474;
-    --tertiary-color: #42b883;
-    --widget-color: #ff7e67;
-    --font-color: #fcfefe;
+  --primary-color: #35495e;
+  --secondary-color: #347474;
+  --tertiary-color: #42b883;
+  --widget-color: #ff7e67;
+  --font-color: #fcfefe;
 }
 
 dialog {
-    font-size: 1rem;
-    text-transform: uppercase;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    color: var(--font-color);
-    background: var(--tertiary-color);
-    border: none;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    transform: translate(-50%, -50%);
-    animation: grow 200ms;
+  font-size: 1rem;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--font-color);
+  background: var(--tertiary-color);
+  border: none;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transform: translate(-50%, -50%);
+  animation: grow 200ms;
 }
 
 @keyframes grow {
-    from {
-        transform: translate(-50%, -50%) scale(0.9);
-    }
-    to {
-        transform: translate(-50%, -50%) scale(1);
-    }
+  from {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 /* The modal form is designed to be a dynamic 2 column grid */
 form[method="dialog"] {
-    padding: 2em;
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 2em;
+  padding: 2em;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 2em;
 }
 
-input, select, textarea {
-    padding: 0.25em;
-    letter-spacing: 0.05em;
-    color: var(--font-color);
-    background-color: var(--secondary-color);
-    border: none;
-    outline: none;
-    border-radius: 5px;
+input,
+select,
+textarea {
+  padding: 0.25em;
+  letter-spacing: 0.05em;
+  color: var(--font-color);
+  background-color: var(--secondary-color);
+  border: none;
+  outline: none;
+  border-radius: 5px;
 }
 
 form[method="dialog"] > button > img {
-    height: 5em;
+  height: 5em;
 }
 
 form[method="dialog"] > button:first-of-type {
-    background-color: #f95959;
-    border: none;
-    outline: none;
-    border-radius: 5px;
+  background-color: #f95959;
+  border: none;
+  outline: none;
+  border-radius: 5px;
 }
 
 form[method="dialog"] > button:last-of-type {
-    background-color: #a1dd70;
-    border: none;
-    outline: none;
-    border-radius: 5px;
+  background-color: #a1dd70;
+  border: none;
+  outline: none;
+  border-radius: 5px;
 }
 
 .field-container {
-    display: grid;
-    gap: 0.25em;
+  display: grid;
+  gap: 0.25em;
 }
 
 .field-container > label {
-    font-size: 0.9em;
-    letter-spacing: 0.1em;
-    padding-left: 0.5em;
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+  padding-left: 0.5em;
 }
 
-.field-container > input, .field-container > select {
-    font-size: 1.25em;
+.field-container > input,
+.field-container > select {
+  font-size: 1.25em;
 }
 
 .wide {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 
 .wide.center {
-    justify-self: center;
+  justify-self: center;
 }

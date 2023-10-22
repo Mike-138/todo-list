@@ -1,8 +1,8 @@
 const buttonFactory = () => {
-  const button = document.createElement('button');
+  const button = document.createElement("button");
 
   const addContentImage = function (icon) {
-    const image = document.createElement('img');
+    const image = document.createElement("img");
     image.src = icon;
     button.replaceChildren(image);
     return this;
@@ -18,7 +18,7 @@ const buttonFactory = () => {
   return {
     addContentImage,
     addContentText,
-    build
+    build,
   };
 };
 
