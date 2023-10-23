@@ -140,21 +140,21 @@ body {
   text-transform: uppercase;
 }
 
-.priority.low {
+.project:has(.priority.low){
   color: black;
   background-color: #cbf078;
 }
 
-.priority.medium {
+.project:has(.priority.medium) {
   color: black;
   background-color: #f8f398;
 }
 
-.priority.high {
+.project:has(.priority.high) {
   background-color: #f1b963;
 }
 
-.priority.urgent {
+.project:has(.priority.urgent) {
   background-color: #e46161;
 }
 
